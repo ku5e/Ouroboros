@@ -22,10 +22,10 @@ print()
 #set up variables
 textfile = 'messages.dat'
 mailServer = 'localhost'
-sender = 'ericashaffer733@tina.squitemaili.info'
-recipient = 'ericashaffer733@tina.squitemaili.info'
-messageTitle = 'I want to meet now'
-numOfMessages = 10
+sender = 'lmpanzo87@gmail.com'
+recipient = 'lmpanzo87@gmail.com'
+messageTitle = 'In my room now!'
+numOfMessages = 1
 
 text = open('messages.dat', 'r')
 messages = text.readlines()
