@@ -1,2 +1,2 @@
 # Ouroboros
- Python Email prject
+ Python Email project
